@@ -1,0 +1,16 @@
+<% if @review.errors.any? %>
+  // render the new form with the errors
+  $('#new_review').html("<%= j render 'reviews/form', restaurant: @restaurant, review: @review %>");
+<% else %>
+  // created the new review, but hiding it
+  var new_review = $("<%= j render 'reviews/show', review: @review %>").hide();
+  $('#reviews').append(new_review);
+  new_review.slideDown();
+  // empty the form
+  $('#review_content').val('');
+  // change the count
+  $('.reviews_count').html("<%= pluralize @restaurant.reviews.size, 'review' %>");
+  // remove errors
+  $('.review_content').removeClass('has-error');
+  $('.help-block').hide();
+<% end %>
